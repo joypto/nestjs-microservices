@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  zookeeper:
+    image: wurstmeister/zookeeper:latest
+    ports:
+      - "2181:2181" # Zookeeper의 기본 포트
+
+  kafka:
+    image: wurstmeister/kafka:latest
+    ports:
+      - "9092:9092" # Kafka의 기본 포트
+    environment:
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181 # Kafka가 Zookeeper에 연결할 수 있도록 설정
+      KAFKA_LISTENERS: PLAINTEXT://0.0.0.0:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
+    depends_on:
+      - zookeeper
+# docker compose up -d
+# docker compose
+# docker compose down
